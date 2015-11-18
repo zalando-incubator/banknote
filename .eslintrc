@@ -1,0 +1,16 @@
+{
+    "env": {
+        "node": true,
+        "es6": true
+    },
+    "rules": {
+        "brace-style": [2, "1tbs"],
+        "comma-style": [2, "last"],
+        "no-constant-condition": 2,
+        "semi": [2, "always"],
+        "space-after-keywords": [2, "always"],
+        "space-before-blocks": [2, "always"],
+        "strict": [2, "global"],
+        "quotes": [2, "single"]
+    }
+}

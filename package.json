@@ -1,0 +1,25 @@
+{
+  "name": "banknote",
+  "version": "0.1.0",
+  "description": "Module for handling currency formatting.",
+  "main": "index.js",
+  "scripts": {
+    "prepublish": "npm run lint && npm test",
+    "lint": "eslint .",
+    "test": "mocha --harmony test",
+    "tdd": "mocha --harmony --watch test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "ssh://git@github.com:zalando/banknote.git"
+  },
+  "keywords": [
+    "i18n"
+  ],
+  "author": "Dmitriy Kubyshkin <dmitriy.kubyshkin@zalando.de>",
+  "license": "MIT",
+  "devDependencies": {
+    "eslint": "1.9.0",
+    "mocha": "2.3.4"
+  }
+}
