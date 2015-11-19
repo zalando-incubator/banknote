@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "prepublish": "npm run lint && npm test",
+    "update-cldr-data": "node update",
     "lint": "eslint .",
     "test": "mocha --harmony test",
     "tdd": "mocha --harmony --watch test"
