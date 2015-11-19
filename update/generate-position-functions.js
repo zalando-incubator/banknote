@@ -78,7 +78,7 @@ module.exports = function (dataDir, outputFileName) {
             '    ' + functionBody + '\n};\n\n';
     });
 
-    result += 'module.exports = locales;\n';
+    result += 'module.exports = positions;\n';
 
     fs.writeFileSync(outputFileName, result);
 };

@@ -378,4 +378,4 @@ positions['fa-AF'] = function (symbol, amount, minus) {
     return '‎' + minus + symbol + amount;
 };
 
-module.exports = locales;
+module.exports = positions;
