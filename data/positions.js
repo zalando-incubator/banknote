@@ -352,7 +352,7 @@ positions['de-CH'] =
 positions['en-CH'] = 
 positions['fr-CH'] = 
 positions['it-CH'] = function (symbol, amount, minus) {
-    return minus ? (symbol + ' ' + amount) : (symbol + minus + amount);
+    return minus ? (symbol + minus + amount) : (symbol + ' ' + amount);
 };
 
 positions['en-NL'] = 
@@ -363,14 +363,14 @@ positions['nl-BQ'] =
 positions['nl-CW'] = 
 positions['nl-SR'] = 
 positions['nl-SX'] = function (symbol, amount, minus) {
-    return minus ? (symbol + ' ' + amount) : (symbol + ' ' + minus + amount);
+    return minus ? (symbol + ' ' + minus + amount) : (symbol + ' ' + amount);
 };
 
 positions['es-CL'] = 
 positions['es-EC'] = 
 positions['es-VE'] = 
 positions['lo'] = function (symbol, amount, minus) {
-    return minus ? (symbol + amount) : (symbol + minus + amount);
+    return minus ? (symbol + minus + amount) : (symbol + amount);
 };
 
 positions['fa'] = 

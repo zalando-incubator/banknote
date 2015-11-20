@@ -25,11 +25,95 @@
 const assert = require('assert');
 const banknote = require('../');
 
+const ALL_KNOWN_LOCALES = Object.keys(require('../data/separators'));
+const COUNTRY_CURRENCY_MAP = require('../data/country-currency');
+const EXPECTED_US_OPTIONS = {
+    decimalSeparator: '.',
+    thousandSeparator: ',',
+    effectiveLocale: 'en',
+    currencyCode: 'USD',
+    currencySymbol: '$',
+    subunitsPerUnit: 100,
+    showDecimalIfWhole: true
+};
+
 describe('banknote', function () {
 
-    describe('formatCents', function () {
-        it('should default to "en-US" locale and "USD"', function () {
-            assert.equal(banknote.formatCents(1234), '$12.34');
+    describe('formattingOptionsForLocale', function () {
+
+        it('should throw for missing locale', function () {
+            assert.throws(function () {
+                banknote.formattingForLocale();
+            });
         });
+
+        it('should throw for unknown locale', function () {
+            assert.throws(function () {
+                banknote.formattingForLocale('i-klingon');
+            });
+        });
+
+        it('should throw for a locale without a region', function () {
+            assert.throws(function () {
+                banknote.formattingForLocale('en');
+            });
+        });
+
+        it('should give a full options given a valid locale with a territory', function () {
+            const options = banknote.formattingForLocale('en-US');
+            assert.equal(typeof options.currencyFormatter, 'function');
+            delete options.currencyFormatter;
+            assert.deepEqual(options, EXPECTED_US_OPTIONS);
+        });
+
+        it('should work for all known locales given an explicit currency', function () {
+            ALL_KNOWN_LOCALES.forEach(function (locale) {
+                assert(typeof banknote.formattingForLocale(locale, 'USD'), 'object');
+            });
+        });
+
+        it('should work for all known locales where region is a valid country code', function () {
+            ALL_KNOWN_LOCALES.forEach(function (locale) {
+                var region = locale.split('-')[1];
+                if (region && region.length === 2 && (region in COUNTRY_CURRENCY_MAP)) {
+                    assert(typeof banknote.formattingForLocale(locale), 'object');
+                }
+            });
+        });
+
+    });
+
+    describe('currencyForCountry', function () {
+        it('should allow to find a currency code from the country code');
+        it('should allow to find a currency code from the country code with a fallback');
+    });
+
+    describe('formatSubunitAmount', function () {
+
+        it('should work for "en-US" locale', function () {
+            const options = banknote.formattingForLocale('en-US');
+            assert.equal(banknote.formatSubunitAmount(123456, options), '$1,234.56');
+        });
+
+        it('should work for "de-AT" locale', function () {
+            const options = banknote.formattingForLocale('de-AT');
+            assert.equal(banknote.formatSubunitAmount(-123456, options), '-€ 1 234,56');
+        });
+
+        it('should work for "de-CH" locale', function () {
+            const options = banknote.formattingForLocale('de-CH');
+            assert.equal(banknote.formatSubunitAmount(-123456, options), 'CHF-1\'234.56');
+        });
+
+        it('should work for "en-US" locale with "EUR" currency', function () {
+            const options = banknote.formattingForLocale('en-US', 'EUR');
+            assert.equal(banknote.formatSubunitAmount(123456, options), '€1,234.56');
+        });
+
+        it('should work for "de" locale with "EUR" currency', function () {
+            const options = banknote.formattingForLocale('de', 'EUR');
+            assert.equal(banknote.formatSubunitAmount(123456, options), '1.234,56 €');
+        });
+
     });
 });

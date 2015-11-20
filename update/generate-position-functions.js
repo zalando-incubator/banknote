@@ -41,8 +41,8 @@ function transformPatternIntoJsExpression(pattern, patternType) {
 function generateFunctionBody(positive, negative) {
     if (negative) {
         return 'return ' + MINUS_VAR_NAME + ' ? (' +
-            transformPatternIntoJsExpression(positive) + ') : (' +
-            transformPatternIntoJsExpression(negative, 'implicitMinus') + ');';
+            transformPatternIntoJsExpression(negative, 'implicitMinus') + ') : (' +
+            transformPatternIntoJsExpression(positive) + ');';
     } else {
         return 'return ' + transformPatternIntoJsExpression(positive, 'implicitMinus') + ';';
     }
@@ -62,8 +62,6 @@ module.exports = function (dataDir, outputFileName) {
         } else {
             functionCache[functionBody] = [locale];
         }
-
-
     });
 
     var result = '\'use strict\';\n\nvar positions = {};\n\n';
