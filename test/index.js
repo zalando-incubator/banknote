@@ -26,7 +26,10 @@ const assert = require('assert');
 const banknote = require('../');
 
 describe('banknote', function () {
-    it('should ', function () {
 
+    describe('formatCents', function () {
+        it('should default to "en-US" locale and "USD"', function () {
+            assert.equal(banknote.formatCents(1234), '$12.34');
+        });
     });
 });

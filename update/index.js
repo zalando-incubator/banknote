@@ -16,4 +16,4 @@ console.info('[INFO] Generating Currency Symbol Map...');
 require('./generate-currency-symbol-map')(cldrDataDir, path.join(__dirname, '..', 'data', 'symbol-map.js'));
 
 console.info('[INFO] Generating Country Information...');
-require('./generate-country-information')(cldrDataDir, path.join(__dirname, '..', 'data', 'country-info.js'));
+require('./generate-country-information')(cldrDataDir, path.join(__dirname, '..', 'data', 'country-currency.js'));
