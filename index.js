@@ -129,7 +129,7 @@ exports.formatSubunitAmount = function (subunitAmount, formatting) {
         formattedAmount = formattedAmount.replace(THOUSAND_MATCHER, formatting.thousandSeparator);
     }
 
-    if (!(!formatting.showDecimalIfWhole && decimalPart === 0)) {
+    if (!(!formatting.showDecimalIfWhole && decimalPart === '0')) {
         var centsZeroFill = String(formatting.subunitsPerUnit).length - 1;
         while (decimalPart.length < centsZeroFill) {
             decimalPart = '0' + decimalPart;

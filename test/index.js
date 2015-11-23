@@ -120,5 +120,11 @@ describe('banknote', function () {
             assert.equal(banknote.formatSubunitAmount(123406, options), '1.234,06 €');
         });
 
+        it('should correctly hide decimal when appropriate options is specified', function () {
+            const options = banknote.formattingForLocale('de-DE');
+            options.showDecimalIfWhole = false;
+            assert.equal(banknote.formatSubunitAmount(123400, options), '1.234 €');
+        });
+
     });
 });
