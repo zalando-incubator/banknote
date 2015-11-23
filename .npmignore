@@ -5,8 +5,9 @@
 logs
 *.log
 
-# Tests
+# Development
 test
+update
 
 # Dotfiles
 .*

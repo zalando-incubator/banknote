@@ -1,12 +1,12 @@
 # banknote
 
 This library is designed to provide a small an easy to use way to format
-prices in multiple locales and currencies. It's mainly targeted at Node.js,
+money in multiple locales and currencies. It's mainly targeted at Node.js,
 but should work in the browser if required with things like
 [Webpack](https://webpack.github.io/) or
 [browserify](http://browserify.org/).
 
-If you want to do more than just format prices and ready to bear to change
+If you want to do more than just format money and ready to bear to change
 your build process or just ready to accept a ~300MB node module, then
 [globalize](https://github.com/jquery/globalize) from jQuery foundation
 is a better choice, since it's using the same data, but has access to all
@@ -70,7 +70,7 @@ app.get('/', function(req, res){
 
 ### Customizing Default Formatters
 
-With `banknote` you can also customized any of the formatting options
+With `banknote` you can also customize any of the formatting options
 yourself, for example:
 
 ```js
@@ -97,6 +97,73 @@ position, but unfortunately it's not enough to satisfy all of the
 possible locale settings. For example `de-CH` requires placing `-`
 after the currency symbol, which is usually not supported or
 results in an explosion of parameters.
+
+## Formatting Options
+
+Below is the list of all the properties in formatting options obtained from
+`formattingForLocale` call:
+
+```js
+var formattingOptions = {
+    /**
+     * Controls whether the subunit (decimal) part is shown when
+     * the value is exact, e.g. exactly $8 and 0¢
+     * @type boolean
+     */
+    showDecimalIfWhole: true,
+
+    /**
+     *
+     * @type number
+     */
+    subunitsPerUnit: 100,
+
+    /**
+     * Effective locale means the exact locale that will be used
+     * when formatting numbers. It doesn't necessarily match the
+     * locale passed to `formattingForLocale()` call because
+     * of the fallback logic.
+     * @type string
+     */
+    effectiveLocale: 'en',
+
+    /**
+     * Currency code is not used directly and is provided here
+     * for reference or custom logic for the clients of the lib
+     * @type string
+     */
+    currencyCode: 'USD',
+
+    /**
+     * Symbol passed in to `currencyFormatter` function.
+     * @type string
+     */
+    currencySymbol: '$',
+
+    /**
+     * Separator used to format thousands.
+     * @type string
+     */
+    thousandSeparator: ',',
+
+    /**
+     * Separator between whole and decimal part of the amount.
+     */
+    decimalSeparator: '.',
+
+    /**
+     * Function that correctly positions symbol, formattedAmount
+     * and a minus relative to each other.
+     * @param {string} symbol
+     * @param {string} formattedAmount
+     * @param {string} minus
+     * @returns {string}
+     */
+    currencyFormatter: function (symbol, formattedAmount, minus) {
+        return minus + formattedAmount + symbol;
+    }
+};
+```
 
 ## License
 

@@ -79,7 +79,7 @@ function getCurrencyFromRegion(region) {
  */
 
 /**
- * This function tries hard to figure out full set formatting options necessary to format a price.
+ * This function tries hard to figure out full set formatting options necessary to format money.
  * If the locale is valid and contains are territory that is also a valid ISO3166-1-Alpha-2 country
  * code (e.g. en-US), then the default currency for that country is taken. Otherwise you have to
  * provide an explicit currency code.
