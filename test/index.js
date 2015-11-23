@@ -115,5 +115,10 @@ describe('banknote', function () {
             assert.equal(banknote.formatSubunitAmount(123456, options), '1.234,56 €');
         });
 
+        it('should correctly fill up the cents amount', function () {
+            const options = banknote.formattingForLocale('de-DE');
+            assert.equal(banknote.formatSubunitAmount(123406, options), '1.234,06 €');
+        });
+
     });
 });

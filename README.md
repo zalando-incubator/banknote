@@ -43,7 +43,8 @@ console.log(banknote.formatSubunitAmount(123456, formattingOptions);
 ### Dynamic Locales
 
 Quite often it's necessary to change a locale based on the incoming
-request or some other input. It's recommended to use memoization
+request or some other input. It's recommended to use
+[memoization](https://en.wikipedia.org/wiki/Memoization)
 function together with a fallback logic. For example:
 
 ```js
@@ -148,6 +149,7 @@ var formattingOptions = {
 
     /**
      * Separator between whole and decimal part of the amount.
+     * @type string
      */
     decimalSeparator: '.',
 

@@ -122,7 +122,7 @@ exports.formattingForLocale = function (locale, currencyCode) {
 exports.formatSubunitAmount = function (subunitAmount, formatting) {
     var minus = subunitAmount < 0 ? '-' : '';
     var mainPart = Math.abs(subunitAmount / formatting.subunitsPerUnit) | 0; // | 0 cuts of the decimal part
-    var decimalPart = Math.abs(subunitAmount % formatting.subunitsPerUnit) | 0;
+    var decimalPart = String(Math.abs(subunitAmount % formatting.subunitsPerUnit) | 0);
     var formattedAmount = String(mainPart);
 
     if (formatting.thousandSeparator) {
@@ -130,6 +130,10 @@ exports.formatSubunitAmount = function (subunitAmount, formatting) {
     }
 
     if (!(!formatting.showDecimalIfWhole && decimalPart === 0)) {
+        var centsZeroFill = String(formatting.subunitsPerUnit).length - 1;
+        while (decimalPart.length < centsZeroFill) {
+            decimalPart = '0' + decimalPart;
+        }
         formattedAmount += formatting.decimalSeparator + decimalPart;
     }
 
