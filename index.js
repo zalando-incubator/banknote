@@ -112,6 +112,15 @@ exports.formattingForLocale = function (locale, currencyCode) {
 };
 
 /**
+ * Returns a currency code for the given country or `undefined` if nothing found.
+ * @param {string} twoCharacterCountryCode
+ * @returns {string|undefined}
+ */
+exports.currencyForCountry = function (twoCharacterCountryCode) {
+    return countryCurrencyMap[twoCharacterCountryCode];
+};
+
+/**
  * This function accepts an amount in subunits (which are called "cents" in currencies like EUR or USD),
  * and also a formatting options object, that can be either constructed manually or created from locale
  * using `banknote.formattingForLocale()` method. This function doesn't provide any defaults for formatting.

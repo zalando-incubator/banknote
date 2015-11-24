@@ -84,8 +84,10 @@ describe('banknote', function () {
     });
 
     describe('currencyForCountry', function () {
-        it('should allow to find a currency code from the country code');
-        it('should allow to find a currency code from the country code with a fallback');
+        it('should allow to find a currency code from the country code', function () {
+            assert.equal(banknote.currencyForCountry('US'), 'USD');
+            assert.equal(banknote.currencyForCountry('DE'), 'EUR');
+        });
     });
 
     describe('formatSubunitAmount', function () {
