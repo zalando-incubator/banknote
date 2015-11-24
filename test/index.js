@@ -30,7 +30,6 @@ const COUNTRY_CURRENCY_MAP = require('../data/country-currency');
 const EXPECTED_US_OPTIONS = {
     decimalSeparator: '.',
     thousandSeparator: ',',
-    effectiveLocale: 'en',
     currencyCode: 'USD',
     currencySymbol: '$',
     subunitsPerUnit: 100,

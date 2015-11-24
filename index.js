@@ -37,20 +37,21 @@ function error(message) {
 }
 
 /**
+ * @param {Object} map
  * @param {string} locale
  * @param {Array<string>} localeParts
+ * @throws {Error}
  * @returns {string}
  */
-function findEffectiveLocale(locale, localeParts) {
-    if (locale in localePositionersMap) {
-        return locale;
-    } else if ((locale = localeParts[LOCALE_LANGUAGE] + '-' + localeParts[LOCALE_REGION]) in localePositionersMap) {
-        return locale;
-    } else if ((locale = localeParts[LOCALE_LANGUAGE]) in localePositionersMap) {
-        return locale;
-    } else {
+function findWithFallback(map, locale, localeParts) {
+    var result = map[locale] ||
+                 map[localeParts[LOCALE_LANGUAGE] + '-' + localeParts[LOCALE_REGION]] ||
+                 map[localeParts[LOCALE_LANGUAGE]];
+    if (!result) {
         error('Could not find info for locale "' + locale + '"');
     }
+
+    return result;
 }
 
 /**
@@ -96,16 +97,14 @@ exports.formattingForLocale = function (locale, currencyCode) {
     }
 
     currencyCode = currencyCode || getCurrencyFromRegion(localeParts[LOCALE_REGION]);
-    var effectiveLocale = findEffectiveLocale(locale, localeParts);
-    var separators = localeSeparatorsMap[effectiveLocale];
+    var separators = findWithFallback(localeSeparatorsMap, locale, localeParts);
 
     return {
         showDecimalIfWhole: true,
         subunitsPerUnit: 100, // TODO change 100 with real information
         currencyCode: currencyCode,
         currencySymbol: currencySymbolMap[currencyCode] || currencyCode,
-        effectiveLocale: effectiveLocale,
-        currencyFormatter: localePositionersMap[effectiveLocale],
+        currencyFormatter: findWithFallback(localePositionersMap, locale, localeParts),
         decimalSeparator: separators.charAt(0),
         thousandSeparator: separators.charAt(1)
     };

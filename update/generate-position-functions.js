@@ -57,8 +57,12 @@ module.exports = function (dataDir, outputFileName) {
         const positiveAndNegative = pattern.split(';');
         const functionBody = generateFunctionBody.apply(undefined, positiveAndNegative);
 
+        const language = locale.match(/^([a-zA-Z]{2,4})[-_]?/)[1];
+
         if (functionCache[functionBody]) {
-            functionCache[functionBody].push(locale);
+            if (functionCache[functionBody].indexOf(language) === -1) {
+                functionCache[functionBody].push(locale);
+            }
         } else {
             functionCache[functionBody] = [locale];
         }

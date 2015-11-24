@@ -5,14 +5,16 @@ const fs = require('fs');
 
 module.exports = function (dataDir, outputFileName) {
 
-    const map = {};
     const ruleCache = {};
     fs.readdirSync(dataDir).forEach(function (locale) {
         const info = require(path.join(dataDir, locale, 'numbers.json'));
         const rules = info.main[locale].numbers['symbols-numberSystem-latn'];
         const key = rules.decimal + rules.group;
+        const language = locale.match(/^([a-zA-Z]{2,4})[-_]?/)[1];
         if (ruleCache[key]) {
-            ruleCache[key].push(locale);
+            if (ruleCache[key].indexOf(language) === -1) {
+                ruleCache[key].push(locale);
+            }
         } else {
             ruleCache[key] = [locale];
         }
