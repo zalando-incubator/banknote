@@ -1,13 +1,13 @@
 # banknote
 
-This library is designed to provide a small an easy to use way to format
+This library is designed to provide a small and easy to use way to format
 money in multiple locales and currencies. It's mainly targeted at Node.js,
-but should work in the browser if required with things like
+but should work in the browser, if required, with things like
 [Webpack](https://webpack.github.io/) or
 [browserify](http://browserify.org/).
 
-If you want to do more than just format money and ready to bear to change
-your build process or just ready to accept a ~300MB node module, then
+If you want to do more than just format money and you are ready to change
+your build process or to accept a ~300MB node module, then
 [globalize](https://github.com/jquery/globalize) from jQuery foundation
 is a better choice, since it's using the same data, but has access to all
 of the [Unicode CLDR](http://cldr.unicode.org/).
@@ -22,29 +22,29 @@ If your app only uses one locale, then the code is very straightforward:
 var banknote = require('banknote');
 var formattingOptions = banknote.formattingForLocale('en-US');
 
-console.log(banknote.formatSubunitAmount(123456, formattingOptions);
+console.log(banknote.formatSubunitAmount(123456, formattingOptions));
 // "$1,234.56"
 ```
 
 ### Explicit Currency
 
 For some applications it's important to be able to specify a different
-currency without changing number formatting rules. Here's an example
-of the "en" number formatting rules but with euro:
+currency without changing the number formatting rules. Here's an example
+of the "en" number formatting rules, but with Euro:
 
 ```js
 var banknote = require('banknote');
 var formattingOptions = banknote.formattingForLocale('en-US', 'EUR');
 
-console.log(banknote.formatSubunitAmount(123456, formattingOptions);
+console.log(banknote.formatSubunitAmount(123456, formattingOptions));
 // "€1,234.56"
 ```
 
 ### Dynamic Locales
 
-Quite often it's necessary to change a locale based on the incoming
+Quite often, it's necessary to change a locale based on the incoming
 request or some other input. It's recommended to use
-[memoization](https://en.wikipedia.org/wiki/Memoization)
+the [memoization](https://en.wikipedia.org/wiki/Memoization)
 function together with a fallback logic. For example:
 
 ```js
@@ -63,7 +63,7 @@ app.get('/', function(req, res){
     } catch (e) {
         formattingOptions = defaultFormattingOptions;
     }
-    res.write(banknote.formatSubunitAmount(123456, formattingOptions);
+    res.write(banknote.formatSubunitAmount(123456, formattingOptions));
     // "€1,234.56"
 });
 
@@ -88,7 +88,7 @@ formattingOptions.currencyFormatter = function (symbol, formattedNumber, minus) 
     return minus + symbol + ' ' + formattedNumber;
 };
 
-console.log(banknote.formatSubunitAmount(123400, formattingOptions);
+console.log(banknote.formatSubunitAmount(123400, formattingOptions));
 // "$1234"
 ```
 
