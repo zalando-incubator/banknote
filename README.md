@@ -14,10 +14,6 @@ If you want to do more than just format monetary amounts, and you are open to ch
 ###Requirements
 - npm (either backend or frontend)
 
-###Installing It
-
-###Running It
-
 ###Examples
 #### Single Locale
 
