@@ -1,20 +1,25 @@
-# banknote
+# Banknote
 
-This library is designed to provide a small and easy to use way to format
-money in multiple locales and currencies. It's mainly targeted at Node.js,
-but should work in the browser, if required, with things like
-[Webpack](https://webpack.github.io/) or
-[browserify](http://browserify.org/).
+Banknote is a small, easy-to-use JavaScript library that provides a simple way to format monetary amounts in multiple locales and currencies. It's mainly targeted at Node.js, but also works in the browser (if needed) with module bundlers like [Webpack](https://webpack.github.io/) and [Browserify](http://browserify.org/).
 
-If you want to do more than just format money and you are ready to change
-your build process or to accept a ~300MB node module, then
-[globalize](https://github.com/jquery/globalize) from jQuery foundation
-is a better choice, since it's using the same data, but has access to all
-of the [Unicode CLDR](http://cldr.unicode.org/).
+## Features
+Banknote addresses a common problem faced by anyone (for example, ecommerce companies) who has to update and format prices on the frontend. It is unique from similar projects in that it follows Unicode CLDR formatting standards instead of providing an ad hoc data solution. It also:  
+- is customizable — you can use emoticons, preferred symbols, etc.
+- allows you to override its default settings — for example, if you want to apply US formatting to amounts in Chinese yen 
 
-## Examples
+If you want to do more than just format monetary amounts, and you are open to changing your build process or accepting a ~300MB node module, then we recommend using jQuery Foundation's [globalize](https://github.com/jquery/globalize). It uses the same data as Banknote, but includes access to all of the [Unicode CLDR](http://cldr.unicode.org/).
 
-### Single Locale
+## How to Use
+
+###Requirements
+- npm (either backend or frontend)
+
+###Installing It
+
+###Running It
+
+###Examples
+#### Single Locale
 
 If your app only uses one locale, then the code is very straightforward:
 
@@ -26,11 +31,9 @@ console.log(banknote.formatSubunitAmount(123456, formattingOptions));
 // "$1,234.56"
 ```
 
-### Explicit Currency
+#### Explicit Currency
 
-For some applications it's important to be able to specify a different
-currency without changing the number formatting rules. Here's an example
-of the "en" number formatting rules, but with Euro:
+For some applications, you'll need a way to specify different currencies without changing number-formatting rules. Here's an example of the "en" number-formatting rules, but with Euro:
 
 ```js
 var banknote = require('banknote');
@@ -40,12 +43,10 @@ console.log(banknote.formatSubunitAmount(123456, formattingOptions));
 // "€1,234.56"
 ```
 
-### Dynamic Locales
+####  Dynamic Locales
 
-Quite often, it's necessary to change a locale based on the incoming
-request or some other input. It's recommended to use
-the [memoization](https://en.wikipedia.org/wiki/Memoization)
-function together with a fallback logic. For example:
+Quite often, you have to change a locale based on an incoming request or some other input. We recommended using
+the [memoization](https://en.wikipedia.org/wiki/Memoization) function together with a fallback logic. For example:
 
 ```js
 var banknote = require('banknote');
@@ -69,10 +70,9 @@ app.get('/', function(req, res){
 
 ```
 
-### Customizing Default Formatters
+#### Customizing Default Formatters
 
-With `banknote` you can also customize any of the formatting options
-yourself, for example:
+With `banknote`, you can also customize any of the formatting options yourself. For example:
 
 ```js
 var banknote = require('banknote');
@@ -92,12 +92,7 @@ console.log(banknote.formatSubunitAmount(123400, formattingOptions));
 // "$1234"
 ```
 
-> Some other libraries provide separate options instead of
-a `currencyFormatter` function that places things at the correct
-position, but unfortunately it's not enough to satisfy all of the
-possible locale settings. For example `de-CH` requires placing `-`
-after the currency symbol, which is usually not supported or
-results in an explosion of parameters.
+We've noticed that many libraries lack a `currencyFormatter` function to place things in their correct positions — providing separate options instead. Unfortunately, separate options won't satisfy all possible locale settings. For example, `de-CH` requires placing `-` after the currency symbol, which is usually not supported or results in an explosion of parameters.
 
 ## Formatting Options
 
