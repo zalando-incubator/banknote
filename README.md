@@ -161,6 +161,7 @@ var formattingOptions = {
 We welcome contributions to this project. Please keep in mind that we want to avoid feature overload, so if you'd like to help out please consider working on the following:
 - performance/speed
 - automating updates of new Unicode releases, or manually submitting pull requests with new Unicode
+- adding a continuous integration build
 
 ## License
 
