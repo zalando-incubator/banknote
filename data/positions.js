@@ -102,6 +102,7 @@ positions['ky'] =
 positions['lt'] = 
 positions['lv'] = 
 positions['nl-BE'] = 
+positions['no'] = 
 positions['pl'] = 
 positions['pt-AO'] = 
 positions['pt-CV'] = 

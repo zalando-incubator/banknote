@@ -21,6 +21,7 @@ separators['ky'] =
 separators['lt'] = 
 separators['lv'] = 
 separators['nb'] = 
+separators['no'] = 
 separators['pl'] = 
 separators['pt-AO'] = 
 separators['pt-CV'] = 
