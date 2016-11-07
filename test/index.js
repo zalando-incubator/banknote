@@ -116,6 +116,11 @@ describe('banknote', function () {
             assert.equal(banknote.formatSubunitAmount(123456, options), '1.234,56 €');
         });
 
+        it('should work for "no" locale with "NOK" currency', function () {
+            const options = banknote.formattingForLocale('no-NO', 'NOK');
+            assert.equal(banknote.formatSubunitAmount(123456, options), '1 234,56 kr');
+        });
+
         it('should correctly fill up the cents amount', function () {
             const options = banknote.formattingForLocale('de-DE');
             assert.equal(banknote.formatSubunitAmount(123406, options), '1.234,06 €');
