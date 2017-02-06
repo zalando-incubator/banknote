@@ -1,0 +1,24 @@
+{
+  "name": "banknote",
+  "description": "Module for handling currency formatting.",
+  "main": "index.js",
+  "authors": [
+    "Dmitriy Kubyshkin <dmitriy.kubyshkin@zalando.de>"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "i18n"
+  ],
+  "homepage": "https://github.com/zalando/banknote",
+  "moduleType": [
+    "globals",
+    "node"
+  ],
+  "ignore": [
+    "node_modules",
+    "bower_components",
+    "public/lib",
+    "test",
+    "update"
+  ]
+}
