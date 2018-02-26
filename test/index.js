@@ -116,6 +116,21 @@ describe('banknote', function () {
             assert.equal(banknote.formatSubunitAmount(123456, options), '1.234,56 €');
         });
 
+        it('should work for "ja-JP" locale', function () {
+            const options = banknote.formattingForLocale('ja-JP');
+            assert.equal(banknote.formatSubunitAmount(123456, options), '¥123,456.0');
+        });
+
+        it('should work for "de" locale with "JPY" currency', function () {
+            const options = banknote.formattingForLocale('de-DE', 'JPY');
+            assert.equal(banknote.formatSubunitAmount(123406, options), '123.406,0 ¥');
+        });
+
+        it('should work for "no-NO" locale', function () {
+            const options = banknote.formattingForLocale('no-NO', 'MGA');
+            assert.equal(banknote.formatSubunitAmount(123456, options), '24 691,1 Ar');
+        });
+
         it('should work for "no" locale with "NOK" currency', function () {
             const options = banknote.formattingForLocale('no-NO', 'NOK');
             assert.equal(banknote.formatSubunitAmount(123456, options), '1 234,56 kr');

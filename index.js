@@ -26,6 +26,7 @@ var countryCurrencyMap = require('./data/country-currency');
 var currencySymbolMap = require('./data/symbol-map');
 var localeSeparatorsMap = require('./data/separators');
 var localePositionersMap = require('./data/positions');
+var subunitsPerUnit = require('./data/subunits-per-unit');
 
 var THOUSAND_MATCHER = /\B(?=(\d{3})+(?!\d))/g;
 var LOCALE_MATCHER = /^\s*([a-zA-Z]{2,4})(?:[-_][a-zA-Z]{4})?(?:[-_]([a-zA-Z]{2}|\d{3}))?\s*(?:$|[-_])/;
@@ -101,7 +102,7 @@ exports.formattingForLocale = function (locale, currencyCode) {
 
     return {
         showDecimalIfWhole: true,
-        subunitsPerUnit: 100, // TODO change 100 with real information
+        subunitsPerUnit: subunitsPerUnit(currencyCode),
         currencyCode: currencyCode,
         currencySymbol: currencySymbolMap[currencyCode] || currencyCode,
         currencyFormatter: findWithFallback(localePositionersMap, locale, localeParts),
