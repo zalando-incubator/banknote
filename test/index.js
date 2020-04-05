@@ -33,6 +33,7 @@ const EXPECTED_US_OPTIONS = {
     currencyCode: 'USD',
     currencySymbol: '$',
     subunitsPerUnit: 100,
+    centsZeroFill: 2,
     showDecimalIfWhole: true
 };
 
@@ -103,7 +104,7 @@ describe('banknote', function () {
 
         it('should work for "de-CH" locale', function () {
             const options = banknote.formattingForLocale('de-CH');
-            assert.equal(banknote.formatSubunitAmount(-123456, options), 'CHF-1\'234.56');
+            assert.equal(banknote.formatSubunitAmount(-123456, options), 'CHF-1’234.56');
         });
 
         it('should work for "en-US" locale with "EUR" currency', function () {
@@ -119,6 +120,11 @@ describe('banknote', function () {
         it('should work for "no" locale with "NOK" currency', function () {
             const options = banknote.formattingForLocale('no-NO', 'NOK');
             assert.equal(banknote.formatSubunitAmount(123456, options), '1 234,56 kr');
+        });
+
+        it('should add the thousand separator', function () {
+            const options = banknote.formattingForLocale('no-NO', 'NOK');
+            assert.equal(banknote.formatSubunitAmount(123456789, options), '1 234 567,89 kr');
         });
 
         it('should correctly fill up the cents amount', function () {

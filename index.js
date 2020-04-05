@@ -22,12 +22,11 @@
 
 'use strict';
 
-var countryCurrencyMap = require('./data/country-currency');
-var currencySymbolMap = require('./data/symbol-map');
-var localeSeparatorsMap = require('./data/separators');
-var localePositionersMap = require('./data/positions');
+const countryCurrencyMap = require('./data/country-currency');
+const currencySymbolMap = require('./data/symbol-map');
+const localeSeparatorsMap = require('./data/separators');
+const localePositionersMap = require('./data/positions');
 
-var THOUSAND_MATCHER = /\B(?=(\d{3})+(?!\d))/g;
 var LOCALE_MATCHER = /^\s*([a-zA-Z]{2,4})(?:[-_][a-zA-Z]{4})?(?:[-_]([a-zA-Z]{2}|\d{3}))?\s*(?:$|[-_])/;
 var LOCALE_LANGUAGE = 1;
 var LOCALE_REGION = 2;
@@ -41,12 +40,12 @@ function error(message) {
  * @param {string} locale
  * @param {Array<string>} localeParts
  * @throws {Error}
- * @returns {string}
+ * @returns {string | function}
  */
 function findWithFallback(map, locale, localeParts) {
-    var result = map[locale] ||
-                 map[localeParts[LOCALE_LANGUAGE] + '-' + localeParts[LOCALE_REGION]] ||
-                 map[localeParts[LOCALE_LANGUAGE]];
+    const result = map[locale] ||
+        map[localeParts[LOCALE_LANGUAGE] + '-' + localeParts[LOCALE_REGION]] ||
+        map[localeParts[LOCALE_LANGUAGE]];
     if (!result) {
         error('Could not find info for locale "' + locale + '"');
     }
@@ -59,7 +58,7 @@ function findWithFallback(map, locale, localeParts) {
  * @returns {string}
  */
 function getCurrencyFromRegion(region) {
-    var currencyCode = countryCurrencyMap[region];
+    const currencyCode = countryCurrencyMap[region];
     if (!currencyCode) {
         error('Could not find default currency for locale region "' + region + '". Please provide explicit currency.');
     }
@@ -70,10 +69,11 @@ function getCurrencyFromRegion(region) {
  * @typedef {{
  *     showDecimalIfWhole: boolean,
  *     subunitsPerUnit: number,
+ *     centsZeroFill: number,
  *     effectiveLocale: string,
  *     currencyCode: string,
  *     currencySymbol: string,
- *     currencyFormatter: function,
+ *     currencyFormatter: Function,
  *     thousandSeparator: string,
  *     decimalSeparator: string
  * }} BanknoteFormatting
@@ -90,18 +90,20 @@ function getCurrencyFromRegion(region) {
  * @returns {BanknoteFormatting}
  */
 exports.formattingForLocale = function (locale, currencyCode) {
-    var localeParts = locale.match(LOCALE_MATCHER);
+    const localeParts = locale.match(LOCALE_MATCHER);
 
     if (!localeParts) {
         error('Locale provided does not conform to BCP47.');
     }
 
     currencyCode = currencyCode || getCurrencyFromRegion(localeParts[LOCALE_REGION]);
-    var separators = findWithFallback(localeSeparatorsMap, locale, localeParts);
+    const separators = findWithFallback(localeSeparatorsMap, locale, localeParts);
 
+    const subunitsPerUnit = 100; // TODO change 100 with real information
     return {
         showDecimalIfWhole: true,
-        subunitsPerUnit: 100, // TODO change 100 with real information
+        subunitsPerUnit,
+        centsZeroFill: String(subunitsPerUnit).length - 1,
         currencyCode: currencyCode,
         currencySymbol: currencySymbolMap[currencyCode] || currencyCode,
         currencyFormatter: findWithFallback(localePositionersMap, locale, localeParts),
@@ -128,18 +130,19 @@ exports.currencyForCountry = function (twoCharacterCountryCode) {
  * @returns {string}
  */
 exports.formatSubunitAmount = function (subunitAmount, formatting) {
-    var minus = subunitAmount < 0 ? '-' : '';
-    var mainPart = Math.abs(subunitAmount / formatting.subunitsPerUnit) | 0; // | 0 cuts of the decimal part
-    var decimalPart = String(Math.abs(subunitAmount % formatting.subunitsPerUnit) | 0);
-    var formattedAmount = String(mainPart);
-
+    const minus = subunitAmount < 0 ? '-' : '';
+    const absAmount = Math.abs(subunitAmount);
+    const mainPart = absAmount / formatting.subunitsPerUnit | 0; // | 0 cuts of the decimal part
+    let decimalPart = '' + (absAmount % formatting.subunitsPerUnit | 0);
+    let formattedAmount;
     if (formatting.thousandSeparator) {
-        formattedAmount = formattedAmount.replace(THOUSAND_MATCHER, formatting.thousandSeparator);
+        formattedAmount = addThousandSeparator(mainPart, formatting.thousandSeparator);
+    } else {
+        formattedAmount = '' + mainPart;
     }
 
     if (!(!formatting.showDecimalIfWhole && decimalPart === '0')) {
-        var centsZeroFill = String(formatting.subunitsPerUnit).length - 1;
-        while (decimalPart.length < centsZeroFill) {
+        while (decimalPart.length < formatting.centsZeroFill) {
             decimalPart = '0' + decimalPart;
         }
         formattedAmount += formatting.decimalSeparator + decimalPart;
@@ -147,3 +150,13 @@ exports.formatSubunitAmount = function (subunitAmount, formatting) {
 
     return formatting.currencyFormatter(formatting.currencySymbol, formattedAmount, minus);
 };
+
+function addThousandSeparator(integer, separator) {
+    let mainPart = '' + (integer % 1000);
+    integer = (integer / 1000) | 0;
+    while (integer > 0) {
+        mainPart = (integer % 1000) + separator + mainPart;
+        integer = (integer / 1000) | 0;
+    }
+    return mainPart;
+}
