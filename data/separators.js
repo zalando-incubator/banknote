@@ -23,6 +23,7 @@ separators['lt'] =
 separators['lv'] = 
 separators['nb'] = 
 separators['pl'] = 
+separators['no'] = 
 separators['pt-AO'] = 
 separators['pt-CH'] = 
 separators['pt-CV'] = 

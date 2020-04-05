@@ -106,6 +106,7 @@ positions['lv'] =
 positions['mk'] = 
 positions['my'] = 
 positions['pl'] = 
+positions['no'] = 
 positions['ps'] = 
 positions['pt-AO'] = 
 positions['pt-CH'] = 
