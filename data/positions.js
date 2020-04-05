@@ -8,6 +8,8 @@ positions['cy'] =
 positions['en'] = 
 positions['es-419'] = 
 positions['es-BO'] = 
+positions['es-BR'] = 
+positions['es-BZ'] = 
 positions['es-CR'] = 
 positions['es-CU'] = 
 positions['es-DO'] = 
@@ -17,59 +19,59 @@ positions['es-HN'] =
 positions['es-MX'] = 
 positions['es-NI'] = 
 positions['es-PA'] = 
-positions['es-PE'] = 
 positions['es-PR'] = 
 positions['es-SV'] = 
 positions['es-US'] = 
 positions['fil'] = 
 positions['ga'] = 
-positions['gl'] = 
 positions['gu'] = 
 positions['hi'] = 
 positions['id'] = 
 positions['ja'] = 
-positions['km'] = 
 positions['kn'] = 
 positions['ko'] = 
 positions['ml'] = 
 positions['mr'] = 
 positions['ms'] = 
-positions['pt'] = 
+positions['or'] = 
 positions['si'] = 
-positions['sw'] = 
+positions['so'] = 
 positions['te'] = 
 positions['th'] = 
+positions['tr'] = 
+positions['yue'] = 
 positions['zh'] = 
 positions['zu'] = function (symbol, amount, minus) {
     return minus + symbol + amount;
 };
 
 positions['ar'] = 
-positions['az'] = 
+positions['as'] = 
 positions['de-AT'] = 
 positions['de-LI'] = 
 positions['en-AT'] = 
-positions['en-IN'] = 
 positions['en-US-POSIX'] = 
 positions['es-AR'] = 
 positions['es-CO'] = 
+positions['es-PE'] = 
 positions['es-UY'] = 
-positions['hy'] = 
-positions['mk'] = 
+positions['fa-AF'] = 
+positions['jv'] = 
 positions['mn'] = 
 positions['ms-BN'] = 
-positions['my'] = 
 positions['nb'] = 
 positions['ne'] = 
 positions['pa'] = 
+positions['pt'] = 
 positions['root'] = 
+positions['sd'] = 
+positions['sw'] = 
 positions['ta'] = 
-positions['to'] = 
-positions['ur'] = 
-positions['vi'] = function (symbol, amount, minus) {
+positions['ur'] = function (symbol, amount, minus) {
     return minus + symbol + ' ' + amount;
 };
 
+positions['az'] = 
 positions['be'] = 
 positions['bg'] = 
 positions['bs'] = 
@@ -89,11 +91,11 @@ positions['es'] =
 positions['et'] = 
 positions['eu'] = 
 positions['fi'] = 
-positions['fo'] = 
 positions['fr'] = 
-positions['he'] = 
+positions['gl'] = 
 positions['hr'] = 
 positions['hu'] = 
+positions['hy'] = 
 positions['is'] = 
 positions['it'] = 
 positions['ka'] = 
@@ -101,12 +103,16 @@ positions['kk'] =
 positions['ky'] = 
 positions['lt'] = 
 positions['lv'] = 
-positions['nl-BE'] = 
-positions['no'] = 
+positions['mk'] = 
+positions['my'] = 
 positions['pl'] = 
+positions['ps'] = 
 positions['pt-AO'] = 
+positions['pt-CH'] = 
 positions['pt-CV'] = 
+positions['pt-GQ'] = 
 positions['pt-GW'] = 
+positions['pt-LU'] = 
 positions['pt-MO'] = 
 positions['pt-MZ'] = 
 positions['pt-PT'] = 
@@ -119,19 +125,20 @@ positions['sl'] =
 positions['sq'] = 
 positions['sr'] = 
 positions['sv'] = 
-positions['tr'] = 
+positions['tk'] = 
 positions['uk'] = 
-positions['uz'] = function (symbol, amount, minus) {
+positions['uz'] = 
+positions['vi'] = function (symbol, amount, minus) {
     return minus + amount + ' ' + symbol;
 };
 
-positions['bn'] = function (symbol, amount, minus) {
+positions['bn'] = 
+positions['km'] = function (symbol, amount, minus) {
     return minus + amount + symbol;
 };
 
 positions['de-CH'] = 
 positions['en-CH'] = 
-positions['fr-CH'] = 
 positions['it-CH'] = function (symbol, amount, minus) {
     return minus ? (symbol + minus + amount) : (symbol + ' ' + amount);
 };
@@ -150,7 +157,11 @@ positions['lo'] = function (symbol, amount, minus) {
 };
 
 positions['fa'] = function (symbol, amount, minus) {
-    return '‎' + minus + symbol + amount;
+    return '‎' + minus + symbol + ' ' + amount;
+};
+
+positions['he'] = function (symbol, amount, minus) {
+    return minus ? ('‏' + minus + amount + ' ' + symbol) : ('‏' + amount + ' ' + symbol);
 };
 
 module.exports = positions;
