@@ -7,8 +7,8 @@
     "prepublish": "npm run lint && npm test",
     "update-cldr-data": "node update",
     "lint": "eslint .",
-    "test": "mocha --harmony test",
-    "tdd": "mocha --harmony --watch test"
+    "test": "mocha test",
+    "tdd": "mocha --watch test"
   },
   "repository": {
     "type": "git",
@@ -20,7 +20,12 @@
   "author": "Dmitriy Kubyshkin <dmitriy.kubyshkin@zalando.de>",
   "license": "MIT",
   "devDependencies": {
-    "eslint": "1.9.0",
-    "mocha": "2.3.4"
+    "eslint": "^6.8.0",
+    "mocha": "^7.1.1"
+  },
+  "dependencies": {
+    "benchmark": "^2.1.4",
+    "cldr-data": "^36.0.0",
+    "country-data": "0.0.31"
   }
 }
