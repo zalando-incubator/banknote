@@ -92,6 +92,11 @@ describe('banknote', function () {
 
     describe('formatSubunitAmount', function () {
 
+        it('should work for 0 values', function () {
+            const options = banknote.formattingForLocale('en-US');
+            assert.equal(banknote.formatSubunitAmount(0, options), '$0.00');
+        });
+
         it('should work for "en-US" locale', function () {
             const options = banknote.formattingForLocale('en-US');
             assert.equal(banknote.formatSubunitAmount(123456, options), '$1,234.56');
@@ -125,11 +130,15 @@ describe('banknote', function () {
         it('should add the thousand separator', function () {
             const options = banknote.formattingForLocale('no-NO', 'NOK');
             assert.equal(banknote.formatSubunitAmount(123456789, options), '1 234 567,89 kr');
+            assert.equal(banknote.formatSubunitAmount(103456789, options), '1 034 567,89 kr');
+            assert.equal(banknote.formatSubunitAmount(103406789, options), '1 034 067,89 kr');
+            assert.equal(banknote.formatSubunitAmount(100400089, options), '1 004 000,89 kr');
         });
 
         it('should correctly fill up the cents amount', function () {
             const options = banknote.formattingForLocale('de-DE');
             assert.equal(banknote.formatSubunitAmount(123406, options), '1.234,06 €');
+            assert.equal(banknote.formatSubunitAmount(123400, options), '1.234,00 €');
         });
 
         it('should correctly hide decimal when appropriate options is specified', function () {

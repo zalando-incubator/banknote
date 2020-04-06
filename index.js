@@ -142,21 +142,32 @@ exports.formatSubunitAmount = function (subunitAmount, formatting) {
     }
 
     if (!(!formatting.showDecimalIfWhole && decimalPart === '0')) {
-        while (decimalPart.length < formatting.centsZeroFill) {
-            decimalPart = '0' + decimalPart;
-        }
-        formattedAmount += formatting.decimalSeparator + decimalPart;
+        formattedAmount += formatting.decimalSeparator + padLeft(decimalPart, formatting.centsZeroFill);;
     }
 
     return formatting.currencyFormatter(formatting.currencySymbol, formattedAmount, minus);
 };
 
-function addThousandSeparator(integer, separator) {
-    let mainPart = '' + (integer % 1000);
-    integer = (integer / 1000) | 0;
-    while (integer > 0) {
-        mainPart = (integer % 1000) + separator + mainPart;
-        integer = (integer / 1000) | 0;
+function addThousandSeparator(number, separator) {
+    let mainPart = '' + (number % 1000);
+    number = (number / 1000) | 0;
+    if (number > 0) {
+        mainPart = padLeft(mainPart, 3);
+    }
+    while (number > 0) {
+        let subPart = '' + (number % 1000);
+        number = (number / 1000) | 0;
+        if (number > 0) {
+            subPart = padLeft(subPart, 3);
+        }
+        mainPart = subPart + separator + mainPart;
     }
     return mainPart;
+}
+
+function padLeft(subPart, length) {
+    while (subPart.length < length) {
+        subPart = '0' + subPart;
+    }
+    return subPart;
 }
