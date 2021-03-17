@@ -204,6 +204,7 @@ module.exports = {
     'SH': 'SHP',
     'SI': 'EUR',
     'SJ': 'NOK',
+    'SK': 'EUR',
     'SL': 'SLL',
     'SM': 'EUR',
     'SN': 'XOF',
