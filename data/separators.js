@@ -137,7 +137,8 @@ separators['vi'] = ',.';
 
 separators['de-CH'] = 
 separators['de-LI'] = 
-separators['en-CH'] = 
+separators['en-CH'] =
+separators['fr-CH'] =
 separators['it-CH'] = '.’';
 
 separators['fr'] = ', ';

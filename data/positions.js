@@ -139,7 +139,8 @@ positions['km'] = function (symbol, amount, minus) {
 };
 
 positions['de-CH'] = 
-positions['en-CH'] = 
+positions['en-CH'] =
+positions['fr-CH'] =
 positions['it-CH'] = function (symbol, amount, minus) {
     return minus ? (symbol + minus + amount) : (symbol + ' ' + amount);
 };
