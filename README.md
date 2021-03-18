@@ -1,6 +1,12 @@
 # Banknote
+[![NPM](https://nodei.co/npm/banknote.png)](https://npmjs.org/package/banknote)
 
 Banknote is a small, easy-to-use JavaScript library that provides a simple way to format monetary amounts in multiple locales and currencies. It’s mainly targeted at Node.js, but also works in the browser (if needed) with module bundlers like [Webpack](https://webpack.github.io/) and [Browserify](http://browserify.org/).
+
+
+![build](https://github.com/zalando-incubator/banknote/actions/workflows/build.yml/badge.svg)
+[![downloads](https://img.shields.io/npm/dt/banknote.svg)](https://npmjs.org/package/banknote?cacheSeconds=3600)
+[![version](https://img.shields.io/npm/v/banknote.svg)](https://npmjs.org/package/banknote?cacheSeconds=3600)
 
 ## Features
 
