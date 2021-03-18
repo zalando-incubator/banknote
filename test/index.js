@@ -112,6 +112,12 @@ describe('banknote', function () {
             assert.equal(banknote.formatSubunitAmount(-123456, options), 'CHF-1’234.56');
         });
 
+
+        it('should work for "fr-CH" locale', function () {
+            const options = banknote.formattingForLocale('fr-CH');
+            assert.equal(banknote.formatSubunitAmount(-123456, options), 'CHF-1’234.56');
+        });
+
         it('should work for "en-US" locale with "EUR" currency', function () {
             const options = banknote.formattingForLocale('en-US', 'EUR');
             assert.equal(banknote.formatSubunitAmount(123456, options), '€1,234.56');
