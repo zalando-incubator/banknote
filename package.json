@@ -1,10 +1,9 @@
 {
   "name": "banknote",
-  "version": "0.2.6",
+  "version": "0.2.7",
   "description": "Module for handling currency formatting.",
   "main": "index.js",
   "scripts": {
-    "prepublish": "npm run lint && npm test",
     "update-cldr-data": "node update",
     "lint": "eslint .",
     "test": "mocha test",
