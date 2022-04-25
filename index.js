@@ -101,7 +101,7 @@ exports.formattingForLocale = function (locale, currencyCode) {
 
     const subunitsPerUnit = 100; // TODO change 100 with real information
     return {
-        showDecimalIfWhole: true,
+        showDecimalIfWhole: 'HU' !== localeParts[LOCALE_REGION],
         subunitsPerUnit,
         centsZeroFill: String(subunitsPerUnit).length - 1,
         currencyCode: currencyCode,

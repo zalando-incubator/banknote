@@ -153,5 +153,10 @@ describe('banknote', function () {
             assert.equal(banknote.formatSubunitAmount(123400, options), '1.234 €');
         });
 
+        it('should correctly hide decimal when in Hungary', function () {
+            const options = banknote.formattingForLocale('hu-HU');
+            assert.equal(banknote.formatSubunitAmount(12300, options), '123 Ft');
+        });
+
     });
 });
